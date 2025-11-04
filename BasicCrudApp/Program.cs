@@ -14,8 +14,8 @@ builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", policy =>
 var app = builder.Build();
 
 //app.UseHttpsRedirection();
-app.UseRouting();
 app.UseCors("AllowFrontend");
 app.UseAuthorization();
 app.MapControllers();
+app.UseRouting();
 app.Run();
