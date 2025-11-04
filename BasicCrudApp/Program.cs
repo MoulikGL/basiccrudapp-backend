@@ -9,7 +9,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder
 
 builder.Services.AddControllers();
 
-builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", policy => policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod()));
+builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", policy => policy.WithOrigins("http://localhost:5173", "https://basiccrudapp.vercel.app").AllowAnyHeader().AllowAnyMethod()));
 
 var app = builder.Build();
 
