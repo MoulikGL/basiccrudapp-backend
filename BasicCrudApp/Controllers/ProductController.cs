@@ -7,14 +7,13 @@ namespace BasicCrudApp.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ProductsController : ControllerBase
+public class ProductController : ControllerBase
 {
     private readonly AppDbContext _db;
-    public ProductsController(AppDbContext db) => _db = db;
+    public ProductController(AppDbContext db) => _db = db;
 
     [HttpGet]
-    public async Task<ActionResult<List<Product>>> GetProducts() =>
-        await _db.Products.ToListAsync();
+    public async Task<ActionResult<List<Product>>> GetProducts() => await _db.Products.ToListAsync();
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Product>> GetProduct(int id)
