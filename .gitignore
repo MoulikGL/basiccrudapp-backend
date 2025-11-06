@@ -6,3 +6,4 @@ obj/
 *.pdb
 *.user
 appsettings.Development.json
+.env
