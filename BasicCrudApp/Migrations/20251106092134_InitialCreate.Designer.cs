@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BasicCrudApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251104121627_VercelDbSync")]
-    partial class VercelDbSync
+    [Migration("20251106092134_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
