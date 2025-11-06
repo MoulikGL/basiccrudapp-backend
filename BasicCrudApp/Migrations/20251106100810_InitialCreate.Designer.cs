@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BasicCrudApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251106092134_InitialCreate")]
+    [Migration("20251106100810_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -45,6 +45,15 @@ namespace BasicCrudApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Sample Product",
+                            Name = "Product",
+                            Price = 100m
+                        });
                 });
 
             modelBuilder.Entity("BasicCrudApp.Models.User", b =>
@@ -70,6 +79,15 @@ namespace BasicCrudApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "john@example.com",
+                            FullName = "John Doe",
+                            Password = "Password"
+                        });
                 });
 #pragma warning restore 612, 618
         }

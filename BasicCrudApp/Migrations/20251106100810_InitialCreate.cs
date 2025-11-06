@@ -40,6 +40,16 @@ namespace BasicCrudApp.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Description", "Name", "Price" },
+                values: new object[] { 1, "Sample Product", "Product", 100m });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "FullName", "Password" },
+                values: new object[] { 1, "john@example.com", "John Doe", "Password" });
         }
 
         /// <inheritdoc />
