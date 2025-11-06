@@ -1,14 +1,35 @@
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build  # Use .NET SDK image to build the application
-WORKDIR /src                                    # Set working directory inside the container
-COPY BasicCrudApp.sln ./                        # Copy solution file for dependency restore
-COPY BasicCrudApp/*.csproj ./BasicCrudApp/      # Copy project file for restore
-RUN dotnet restore                              # Restore NuGet dependencies
+# Use .NET SDK image to build the application
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 
-COPY . .                                        # Copy all source code into the container
-WORKDIR /src/BasicCrudApp                       # Navigate to project directory
-RUN dotnet publish -c Release -o /app/publish   # Build and publish app to /app/publish
+# Set working directory inside the container
+WORKDIR /src
 
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime  # Use runtime image for running app
-WORKDIR /app                                         # Set working directory
-COPY --from=build /app/publish .                     # Copy published app from build stage
-ENTRYPOINT ["dotnet", "BasicCrudApp.dll"]            # Define entry point to run the app
+# Copy solution file for dependency restore
+COPY BasicCrudApp.sln ./
+
+# Copy project file for restore
+COPY BasicCrudApp/*.csproj ./BasicCrudApp/
+
+# Restore NuGet dependencies
+RUN dotnet restore
+
+# Copy all source code into the container
+COPY . .
+
+# Navigate to project directory
+WORKDIR /src/BasicCrudApp
+
+# Build and publish app to /app/publish
+RUN dotnet publish -c Release -o /app/publish
+
+# Use runtime image for running app
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
+
+# Set working directory
+WORKDIR /app
+
+# Copy published app from build stage
+COPY --from=build /app/publish .
+
+# Define entry point to run the app
+ENTRYPOINT ["dotnet", "BasicCrudApp.dll"]
