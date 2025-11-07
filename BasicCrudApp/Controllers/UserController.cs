@@ -39,4 +39,32 @@ public class UserController : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> GetUsers() => await _db.Users.ToListAsync();
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateUser(int id, User input)
+    {
+        if (id != input.Id) return BadRequest();
+        var user = await _db.Users.FindAsync(id);
+        if (user is null) return NotFound();
+
+        user.FullName = input.FullName;
+        user.PhoneNumber = input.PhoneNumber;
+        user.Address = input.Address;
+        user.Company = input.Company;
+        user.Email = input.Email;
+
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+        var user = await _db.Users.FindAsync(id);
+        if (user is null) return NotFound();
+
+        _db.Users.Remove(user);
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
 }
