@@ -33,7 +33,7 @@ public class UserController : ControllerBase
         return Ok(new
         {
             message = "Login successful",
-            user = new { user.Id, user.FullName, user.Email }
+            user = new { user.Id, user.FullName, user.PhoneNumber, user.Address, user.Company, user.Email }
         });
     }
 

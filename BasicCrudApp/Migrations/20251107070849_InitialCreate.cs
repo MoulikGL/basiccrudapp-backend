@@ -33,6 +33,9 @@ namespace BasicCrudApp.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     FullName = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    Company = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false)
                 },
@@ -48,8 +51,8 @@ namespace BasicCrudApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Email", "FullName", "Password" },
-                values: new object[] { 1, "john@example.com", "John Doe", "Password" });
+                columns: new[] { "Id", "Address", "Company", "Email", "FullName", "Password", "PhoneNumber" },
+                values: new object[] { 1, "Address", "Company", "admin@gmail.com", "Admin", "Password", "0123456789" });
         }
 
         /// <inheritdoc />

@@ -61,6 +61,14 @@ namespace BasicCrudApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
@@ -73,6 +81,10 @@ namespace BasicCrudApp.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -81,9 +93,12 @@ namespace BasicCrudApp.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "john@example.com",
-                            FullName = "John Doe",
-                            Password = "Password"
+                            Address = "Address",
+                            Company = "Company",
+                            Email = "admin@gmail.com",
+                            FullName = "Admin",
+                            Password = "Password",
+                            PhoneNumber = "0123456789"
                         });
                 });
 #pragma warning restore 612, 618
