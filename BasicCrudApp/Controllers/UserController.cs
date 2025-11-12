@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using BasicCrudApp.Data;
 using BasicCrudApp.Models;
+using BasicCrudApp.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BasicCrudApp.Controllers;
 
@@ -10,8 +12,14 @@ namespace BasicCrudApp.Controllers;
 public class UserController : ControllerBase
 {
     private readonly AppDbContext _db;
-    public UserController(AppDbContext db) => _db = db;
+    private readonly JwtService _jwt;
+    public UserController(AppDbContext db, JwtService jwt)
+    {
+        _db = db;
+        _jwt = jwt;
+    }
 
+    [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register(User user)
     {
@@ -23,6 +31,7 @@ public class UserController : ControllerBase
         return Ok(new { message = "User registered successfully." });
     }
 
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<IActionResult> Login(User login)
     {
@@ -30,16 +39,27 @@ public class UserController : ControllerBase
 
         if (user == null) return Unauthorized(new { message = "Invalid email or password." });
 
+        var token = _jwt.GenerateToken(user.Email, user.FullName, user.IsAdmin);
+
         return Ok(new
         {
             message = "Login successful",
-            user = new { user.FullName }
+            token,
+            user = new
+            {
+                user.Id,
+                user.FullName,
+                user.Email,
+                user.IsAdmin
+            }
         });
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> GetUsers() => await _db.Users.ToListAsync();
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateUser(int id, User input)
     {
@@ -57,9 +77,12 @@ public class UserController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(int id)
     {
+        if (id == 1) return BadRequest(new { message = "Cannot delete the Administrator." });
+
         var user = await _db.Users.FindAsync(id);
         if (user is null) return NotFound();
 

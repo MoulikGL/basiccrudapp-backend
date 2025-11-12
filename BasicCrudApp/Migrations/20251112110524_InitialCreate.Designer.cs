@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BasicCrudApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251107070849_InitialCreate")]
+    [Migration("20251112110524_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -52,7 +52,7 @@ namespace BasicCrudApp.Migrations
                             Id = 1,
                             Description = "Sample Product",
                             Name = "Product",
-                            Price = 100m
+                            Price = 0m
                         });
                 });
 
@@ -80,6 +80,9 @@ namespace BasicCrudApp.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
@@ -100,6 +103,7 @@ namespace BasicCrudApp.Migrations
                             Company = "Company",
                             Email = "admin@gmail.com",
                             FullName = "Admin",
+                            IsAdmin = true,
                             Password = "Password",
                             PhoneNumber = "0123456789"
                         });

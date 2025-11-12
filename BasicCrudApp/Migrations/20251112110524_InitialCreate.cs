@@ -37,7 +37,8 @@ namespace BasicCrudApp.Migrations
                     Address = table.Column<string>(type: "text", nullable: false),
                     Company = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false)
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    IsAdmin = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,12 +48,12 @@ namespace BasicCrudApp.Migrations
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "Description", "Name", "Price" },
-                values: new object[] { 1, "Sample Product", "Product", 100m });
+                values: new object[] { 1, "Sample Product", "Product", 0m });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Address", "Company", "Email", "FullName", "Password", "PhoneNumber" },
-                values: new object[] { 1, "Address", "Company", "admin@gmail.com", "Admin", "Password", "0123456789" });
+                columns: new[] { "Id", "Address", "Company", "Email", "FullName", "IsAdmin", "Password", "PhoneNumber" },
+                values: new object[] { 1, "Address", "Company", "admin@gmail.com", "Admin", true, "Password", "0123456789" });
         }
 
         /// <inheritdoc />

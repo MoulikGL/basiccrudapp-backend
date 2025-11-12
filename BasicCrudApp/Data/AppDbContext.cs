@@ -8,7 +8,7 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>().HasData(
-            new User { Id = 1, FullName = "Admin", PhoneNumber = "0123456789", Address = "Address", Company = "Company", Email = "admin@gmail.com", Password = "Password" }
+            new User { Id = 1, FullName = "Admin", PhoneNumber = "0123456789", Address = "Address", Company = "Company", Email = "admin@gmail.com", Password = "Password", IsAdmin = true }
         );
 
         modelBuilder.Entity<Product>().HasData(
