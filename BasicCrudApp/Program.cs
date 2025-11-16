@@ -34,8 +34,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuer = true,
         ValidIssuer = issuer,
         ValidateAudience = true,
-        ValidAudience = audience,
-        ClockSkew = TimeSpan.Zero
+        ValidAudience = audience
     };
 });
 

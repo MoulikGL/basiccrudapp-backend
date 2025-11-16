@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using BasicCrudApp.Data;
 using BasicCrudApp.Models;
 using BasicCrudApp.Services;
-using Microsoft.AspNetCore.Authorization;
 
 namespace BasicCrudApp.Controllers;
 
@@ -28,7 +28,7 @@ public class UserController : ControllerBase
 
         _db.Users.Add(user);
         await _db.SaveChangesAsync();
-        return Ok(new { message = "User registered successfully." });
+        return Ok(new { message = "User registered successfully!" });
     }
 
     [AllowAnonymous]
@@ -43,13 +43,12 @@ public class UserController : ControllerBase
 
         return Ok(new
         {
-            message = "Login successful",
+            message = "User logged in successfully!",
             token,
             user = new
             {
                 user.Id,
                 user.FullName,
-                user.Email,
                 user.IsAdmin
             }
         });

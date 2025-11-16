@@ -53,7 +53,7 @@ namespace BasicCrudApp.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Address", "Company", "Email", "FullName", "IsAdmin", "Password", "PhoneNumber" },
-                values: new object[] { 1, "Address", "Company", "admin@gmail.com", "Admin", true, "Password", "0123456789" });
+                values: new object[] { 1, "Address", "Company", "admin@gmail.com", "Admin", true, "admin", "0123456789" });
         }
 
         /// <inheritdoc />

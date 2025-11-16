@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BasicCrudApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251112110524_InitialCreate")]
+    [Migration("20251114105447_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -104,7 +104,7 @@ namespace BasicCrudApp.Migrations
                             Email = "admin@gmail.com",
                             FullName = "Admin",
                             IsAdmin = true,
-                            Password = "Password",
+                            Password = "admin",
                             PhoneNumber = "0123456789"
                         });
                 });

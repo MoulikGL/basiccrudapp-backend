@@ -101,7 +101,7 @@ namespace BasicCrudApp.Migrations
                             Email = "admin@gmail.com",
                             FullName = "Admin",
                             IsAdmin = true,
-                            Password = "Password",
+                            Password = "admin",
                             PhoneNumber = "0123456789"
                         });
                 });
