@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using BasicCrudApp.Data;
 using BasicCrudApp.Models;
 
@@ -12,9 +13,11 @@ public class ProductController : ControllerBase
     private readonly AppDbContext _db;
     public ProductController(AppDbContext db) => _db = db;
 
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<List<Product>>> GetProducts() => await _db.Products.ToListAsync();
 
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<ActionResult<Product>> GetProduct(int id)
     {
@@ -23,6 +26,7 @@ public class ProductController : ControllerBase
         return product;
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<Product>> CreateProduct(Product product)
     {
@@ -31,6 +35,7 @@ public class ProductController : ControllerBase
         return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateProduct(int id, Product input)
     {
@@ -46,6 +51,7 @@ public class ProductController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteProduct(int id)
     {
